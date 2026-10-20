@@ -218,6 +218,24 @@ section.s{padding-block:clamp(72px,10vw,140px)}
   .bar nav a:not(.cta){display:none}
   .slot:nth-child(2){transform:translateY(18px)}
 }
+@media (max-width:860px){
+  .tl-sticky{justify-content:flex-start;padding-block:14px}
+  .tl-sticky .wrap{display:flex;flex-direction:column;width:100%}
+  .tl .intro{order:0;margin-bottom:14px;gap:8px}
+  .tl h2{font-size:26px}
+  .tl .intro p{font-size:14px;line-height:1.4}
+  .editor{order:1;margin-bottom:12px}
+  .monitor{order:2;margin-bottom:0;min-height:0;padding:14px 16px}
+  .monitor .now{margin-bottom:10px}
+  .active{grid-template-columns:1fr;gap:10px}
+  .active .when{display:none}
+  .active h3{font-size:15px;margin-bottom:1px}
+  .active p{font-size:13px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+}
+@media (max-width:860px) and (prefers-reduced-motion:reduce){
+  .active .when{display:block}
+  .active p{-webkit-line-clamp:unset;display:block}
+}
 @media (max-width:560px){
   .ruler,.track{grid-template-columns:38px 1fr}
   .playhead{left:calc(38px + (100% - 38px) * var(--p,0.76))}
