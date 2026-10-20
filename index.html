@@ -348,7 +348,7 @@ section.s{padding-block:clamp(72px,10vw,140px)}
       <div class="wrap">
         <div class="intro">
           <h2>CV na osi czasu</h2>
-          <p>Przewijaj, a głowica przesuwa się po projekcie. Podgląd pokazuje, co działo się w danym momencie.</p>
+          <p>Przewijaj dalej i przejedź ze mną całą ścieżkę. Od Minecrafta na YouTube po TikToki dla firm.</p>
         </div>
         <div class="monitor" aria-live="polite">
           <div class="now"><span>Podgląd</span><b id="when">teraz, październik 2026</b></div>
@@ -424,7 +424,7 @@ section.s{padding-block:clamp(72px,10vw,140px)}
 
   /* --- dane osi czasu: pozycje w % (wcześniej 0-20, 2024 20-40, 2025 40-60, 2026 60-80, 2027 80-100) --- */
   const clips = [
-    {lane:'v3', c:'--v2', name:'MR. BRICKLEZ', from:2, to:59, when:'do końca 2025', open:false,
+    {lane:'v3', c:'--v2', name:'MR. BRICKLEZ', from:0, to:59, when:'do końca 2025', open:false,
      text:'Kanał z Minecraftem: Shorts, eksperymenty, memy. 186 tys. subskrybentów i 83,8 mln wyświetleń w 2025, wszystko robione samodzielnie.'},
     {lane:'a1', c:'--a1', name:'Zarządzanie, UMK', from:35, to:90, when:'2024 – 2027', wave:true,
      text:'Studia licencjackie, moduł marketingowy. Praca dyplomowa o personal brandingu na YouTube.'},
@@ -498,8 +498,8 @@ section.s{padding-block:clamp(72px,10vw,140px)}
       const pct = p*100;
       ph.style.setProperty('--p', p);
       if (r.top < innerHeight && r.bottom > 0) renderActive(pct);
-      const er = endSec.getBoundingClientRect();
-      const rp = Math.min(1, Math.max(0, (innerHeight - er.top) / (innerHeight*0.7)));
+      const s0 = endSec.offsetTop - innerHeight, s1 = document.documentElement.scrollHeight - innerHeight;
+      const rp = Math.min(1, Math.max(0, (y - s0) / Math.max(1, (s1 - s0) * 0.9)));
       render.style.setProperty('--r', rp.toFixed(3));
       rstat.textContent = rp >= 1 ? 'Render zakończony' : `Renderowanie ${Math.round(rp*100)}%`;
     }
