@@ -72,11 +72,12 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .hero .grid{position:absolute;inset:0;pointer-events:none;opacity:.22;
   background-image:linear-gradient(var(--on-key) 1px,transparent 1px),linear-gradient(90deg,var(--on-key) 1px,transparent 1px);
   background-size:64px 64px;mask-image:radial-gradient(ellipse at 60% 50%,#000 30%,transparent 75%)}
-.hero .stage{position:relative;display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);align-items:center;gap:clamp(24px,5vw,96px);min-height:0;padding-block:clamp(16px,4vh,56px)}
+.hero .stage{position:relative;display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);align-items:center;gap:clamp(32px,7vw,140px);min-height:0;padding-block:clamp(16px,4vh,56px)}
 .plane{will-change:transform}
 .name{position:relative;z-index:1}
 .name .who{font-family:var(--f-tc);font-size:13px;margin-bottom:18px;display:flex;gap:14px;flex-wrap:wrap}
-.name h1{font-size:clamp(44px,7.2vw,132px);font-weight:600;letter-spacing:-.035em;line-height:.96;max-width:11ch}
+.name{container-type:inline-size}
+.name h1{font-size:clamp(40px,18.5cqw,124px);font-weight:600;letter-spacing:-.035em;line-height:.96;max-width:11ch}
 .name .lede{max-width:30ch;font-size:clamp(18px,1.6vw,21px);line-height:1.45;margin-top:28px;font-weight:500}
 .nle-wrap{position:relative;z-index:2;justify-self:stretch;min-width:0}
 .nle{background:var(--ink);color:var(--fg);border-radius:14px;overflow:hidden;box-shadow:0 30px 60px -24px rgba(5,40,15,.7),0 8px 18px rgba(5,40,15,.3);border:1px solid #0A2A12}
