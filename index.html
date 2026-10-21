@@ -174,16 +174,113 @@ section.s{padding-block:clamp(72px,10vw,140px)}
 .playhead::before{content:"";position:absolute;top:0;left:-6px;border:7px solid transparent;border-top:9px solid var(--rec)}
 .editor-body{position:relative}
 
-/* umiejętności */
-.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.skill{background:var(--ink);padding:26px 24px 28px;display:flex;flex-direction:column;gap:10px}
-.skill h3{font-size:20px;font-weight:600;letter-spacing:-.01em}
-.skill p{color:var(--fg-soft);font-size:15px}
-.kf{display:flex;align-items:center;gap:0;height:14px;margin-bottom:6px}
-.kf i{width:9px;height:9px;transform:rotate(45deg);background:var(--key);flex:none}
-.kf b{flex:1;height:1px;background:var(--line)}
-.skill.minor .kf i{background:var(--fg-soft)}
+/* pakiet: panel warstw + podgląd */
+.pk{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--panel)}
+.pk-layers{display:flex;flex-direction:column;border-right:1px solid var(--line);min-width:0}
+.pk-head{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:1px solid var(--line);font-family:var(--f-tc);font-size:11px;color:var(--fg-soft)}
+.pk-head b{color:var(--fg);font-weight:600}
+.pk-list{display:flex;flex-direction:column}
+.ly{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:14px 1fr auto;gap:4px 14px;align-items:center;padding:16px 18px;border-bottom:1px solid var(--line);position:relative;transition:background .2s}
+.ly:last-child{border-bottom:0}
+.ly:hover{background:var(--panel-2)}
+.ly:focus-visible{outline:2px solid var(--key);outline-offset:-2px}
+.ly .sw{width:12px;height:12px;border-radius:3px;background:var(--c);opacity:.45;transition:opacity .2s}
+.ly .nm{font-family:var(--f-display);font-weight:600;font-size:18px;letter-spacing:-.01em;color:var(--fg-soft);transition:color .2s}
+.ly .tm{font-family:var(--f-tc);font-size:11px;color:var(--fg-soft);font-variant-numeric:tabular-nums}
+.ly .ds{grid-column:2 / 4;font-size:14px;color:var(--fg-soft);max-height:0;overflow:hidden;opacity:0;transition:max-height .35s ease,opacity .25s}
+.ly .pr{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--c);transform-origin:left;transform:scaleX(0)}
+.ly[aria-selected="true"]{background:var(--ink)}
+.ly[aria-selected="true"] .sw{opacity:1}
+.ly[aria-selected="true"] .nm{color:var(--fg)}
+.ly[aria-selected="true"] .ds{max-height:80px;opacity:1}
+.pk.auto .ly[aria-selected="true"] .pr{animation:fill var(--dur,5s) linear forwards}
+.pk:not(.auto) .ly[aria-selected="true"] .pr{transform:scaleX(1)}
+@keyframes fill{to{transform:scaleX(1)}}
 
+.pk-mon{display:flex;flex-direction:column;background:var(--ink);min-width:0}
+.pk-mon .pk-head{background:var(--ink)}
+.pk-view{position:relative;flex:1;min-height:440px;display:grid;place-items:center;padding:28px;overflow:hidden;
+  background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--c,var(--key)) 12%,transparent),transparent 65%)}
+.pv{width:100%;max-width:440px;animation:pvIn .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes pvIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+.pv-cap{margin-top:18px;font-size:14px;color:var(--fg-soft);text-align:center;max-width:44ch;margin-inline:auto}
+
+/* 1. scenariusz */
+.scr{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 18px 14px;font-size:14px}
+.scr .ln{display:grid;grid-template-columns:52px 1fr;gap:12px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.scr .ln:last-child{border-bottom:0}
+.scr .t{font-family:var(--f-tc);font-size:11px;color:var(--fg-soft);padding-top:2px}
+.scr .k{display:block;font-family:var(--f-tc);font-size:10px;color:var(--c);margin-bottom:2px}
+.scr .hook{font-family:var(--f-display);font-weight:600;font-size:17px;line-height:1.25;color:var(--fg)}
+.scr .ln.on .hook{background:linear-gradient(transparent 62%,color-mix(in srgb,var(--a1) 35%,transparent) 62%)}
+
+/* 2. nagranie */
+.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.shot-f{aspect-ratio:9/16;border-radius:8px;border:1px solid var(--line);background:var(--panel);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:8px;font-size:11px;color:var(--fg-soft)}
+.shot-f::before{content:"";position:absolute;inset:18% 14% 34%;border:1px dashed color-mix(in srgb,var(--fg-soft) 40%,transparent);border-radius:4px}
+.shot-f .ok{position:absolute;top:8px;right:8px;width:18px;height:18px;border-radius:50%;background:var(--key);color:var(--on-key);font-size:12px;font-weight:700;display:grid;place-items:center;transform:scale(0);animation:pop .3s cubic-bezier(.2,1.6,.4,1) forwards;animation-delay:calc(var(--i) * .25s + .2s)}
+.shot-f .rec{position:absolute;top:9px;left:9px;font-family:var(--f-tc);font-size:9px;color:var(--rec);display:flex;gap:4px;align-items:center}
+.shot-f .rec::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--rec)}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+
+/* 3. montaż */
+.cut{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px}
+.cut .row{position:relative;height:30px;margin-bottom:6px;border-radius:4px;background:repeating-linear-gradient(90deg,transparent 0 calc(10% - 1px),#1B2128 calc(10% - 1px) 10%)}
+.cut .row:last-of-type{margin-bottom:0}
+.cut .b{position:absolute;top:3px;bottom:3px;border-radius:4px;background:color-mix(in srgb,var(--c) 45%,var(--ink));border:1px solid var(--c);transform-origin:left;transform:scaleX(0);animation:grow .45s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i) * .08s)}
+.cut .b.dead{background:repeating-linear-gradient(45deg,color-mix(in srgb,var(--rec) 30%,transparent) 0 4px,transparent 4px 8px);border-color:var(--rec);animation:grow .45s forwards, gone .4s 1.3s forwards}
+@keyframes grow{to{transform:scaleX(1)}}
+@keyframes gone{to{opacity:0;transform:scaleX(0)}}
+.cut .meta{display:flex;justify-content:space-between;margin-top:12px;font-family:var(--f-tc);font-size:11px;color:var(--fg-soft)}
+.cut .meta b{color:var(--fg);font-weight:600}
+
+/* 4. grafika */
+.gfx{display:grid;grid-template-columns:.42fr .58fr;gap:14px;align-items:center}
+.mini-ph{aspect-ratio:9/16;border-radius:14px;background:#0B0E11;padding:5px;box-shadow:0 18px 30px -16px rgba(0,0,0,.8)}
+.mini-ph div{height:100%;border-radius:10px;background:linear-gradient(170deg,#3C4A57,#151B21);position:relative;overflow:hidden}
+.mini-ph .cp{position:absolute;left:6px;right:6px;top:56%;text-align:center;font-family:var(--f-display);font-weight:700;font-size:15px;line-height:1.05;color:#fff;paint-order:stroke;-webkit-text-stroke:3px #000;text-transform:uppercase}
+.mini-ph .cp em{font-style:normal;color:#FFE14D}
+.thumb{aspect-ratio:16/9;border-radius:10px;overflow:hidden;position:relative;background:linear-gradient(120deg,#1E3A8A,#4F6BFF 55%,#B06CFF);box-shadow:0 18px 30px -16px rgba(0,0,0,.8)}
+.thumb .big{position:absolute;left:10px;bottom:8px;font-family:var(--f-display);font-weight:700;font-size:clamp(18px,2.2vw,26px);line-height:.95;color:#fff;letter-spacing:-.02em;paint-order:stroke;-webkit-text-stroke:4px #0B0E11;text-transform:uppercase}
+.thumb .big em{font-style:normal;color:#FFE14D}
+.thumb .arrow{position:absolute;right:12px;top:10px;width:46px;height:46px;border:4px solid #FF3B30;border-radius:50%}
+.thumb .len{position:absolute;right:6px;bottom:6px;font-family:var(--f-tc);font-size:9px;color:#fff;background:rgba(0,0,0,.75);padding:1px 4px;border-radius:3px}
+.gfx .lbl{grid-column:1 / -1;display:flex;justify-content:space-between;font-family:var(--f-tc);font-size:11px;color:var(--fg-soft)}
+
+/* 5. wyniki */
+.rep{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+.rep .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:12px}
+.rep .top span{font-family:var(--f-tc);font-size:11px;color:var(--fg-soft)}
+.rep .top b{font-family:var(--f-display);font-weight:650;font-size:30px;letter-spacing:-.03em;color:var(--key)}
+.rep svg{display:block;width:100%;height:auto}
+.rep .line{fill:none;stroke:var(--key);stroke-width:2.5;stroke-linejoin:round;stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 1.6s ease-out forwards}
+.rep .area{fill:color-mix(in srgb,var(--key) 16%,transparent);opacity:0;animation:fadeA .6s 1s forwards}
+.rep .grid{stroke:var(--line);stroke-width:1}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fadeA{to{opacity:1}}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:14px}
+.cal span{font-family:var(--f-tc);font-size:10px;color:var(--fg-soft);text-align:center;padding:6px 0;border-radius:4px;background:var(--panel-2)}
+.cal span.post{background:color-mix(in srgb,var(--key) 25%,var(--panel-2));color:var(--fg)}
+
+.pk-extra{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px 40px;color:var(--fg-soft);font-size:15px}
+.pk-extra p{border-left:2px solid var(--line);padding-left:14px}
+.pk-extra b{color:var(--fg);font-weight:600}
+
+@media (max-width:860px){
+  .pk{grid-template-columns:minmax(0,1fr)}
+  .pk-layers{border-right:0;border-bottom:1px solid var(--line);min-width:0}
+  .pk-layers > .pk-head{display:none}
+  .pk-list{flex-direction:row;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .pk-list::-webkit-scrollbar{display:none}
+  .ly{flex:none;scroll-snap-align:start;grid-template-columns:12px auto;border-bottom:0;border-right:1px solid var(--line);padding:12px 14px}
+  .ly .tm,.ly .ds{display:none}
+  .ly .nm{font-size:15px;white-space:nowrap}
+  .pk-view{min-height:0;padding:20px 16px}
+}
+@media (prefers-reduced-motion:reduce){
+  .pv,.shot-f .ok,.cut .b,.rep .line,.rep .area{animation:none!important;transform:none;opacity:1;stroke-dashoffset:0}
+  .cut .b.dead{display:none}
+}
 /* kanały */
 .channels{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:20px}
 .ch{display:grid;grid-template-rows:auto 1fr auto;gap:14px;text-decoration:none;padding:24px;border-radius:14px;background:var(--panel);border:1px solid var(--line);transition:border-color .2s, transform .2s}
@@ -393,15 +490,27 @@ section.s{padding-block:clamp(72px,10vw,140px)}
     <div class="wrap">
       <div class="s-head">
         <h2>Co dostajesz w pakiecie</h2>
-        <p>Jedna osoba od pomysłu do publikacji. Bez przekazywania plików między trzema agencjami.</p>
+        <p>Jeden film, cały proces w jednych rękach. Kliknij etap, żeby zobaczyć, co dokładnie dostajesz.</p>
       </div>
-      <div class="skills">
-        <div class="skill"><div class="kf"><i></i><b></b><i></i><b></b><i></i></div><h3>Montaż krótkich i długich form</h3><p>Od 30-sekundowych TikToków po filmy, w których 20 godzin materiału trzeba zamienić w historię.</p></div>
-        <div class="skill"><div class="kf"><i></i><b></b><i></i><b></b><i></i></div><h3>Scenariusze i hooki</h3><p>Pierwsze sekundy piszę tak, żeby widz nie przewinął. Potem trzymam tempo do ostatniej klatki.</p></div>
-        <div class="skill"><div class="kf"><i></i><b></b><i></i><b></b><i></i></div><h3>Prowadzenie konta firmy</h3><p>Plan publikacji, nagrania na miejscu, montaż, opisy i analiza wyników co miesiąc.</p></div>
-        <div class="skill"><div class="kf"><i></i><b></b><i></i><b></b><i></i></div><h3>Grafika i miniatury</h3><p>Okładki, miniatury i napisy w filmach, spójne z marką klienta.</p></div>
-        <div class="skill minor"><div class="kf"><i></i><b></b><i></i></div><h3>Strony i AI</h3><p>Buduję też proste strony i narzędzia z użyciem AI. Przydaje się, gdy kampania potrzebuje landing page'a.</p></div>
-        <div class="skill minor"><div class="kf"><i></i><b></b><i></i></div><h3>Marketing w teorii</h3><p>Trzeci rok zarządzania na UMK, moduł marketingowy. Pracę dyplomową piszę o personal brandingu na YouTube.</p></div>
+      <div class="pk" id="pk">
+        <div class="pk-layers">
+          <div class="pk-head"><span>Warstwy</span><b>projekt_klienta.prproj</b></div>
+          <div class="pk-list" role="tablist" aria-label="Etapy pracy nad filmem">
+            <button class="ly" role="tab" id="t0" aria-controls="pv" aria-selected="true" style="--c:var(--a1)"><span class="sw"></span><span class="nm">Hook i scenariusz</span><span class="tm">dzień 1</span><span class="ds">Piszę pierwsze trzy sekundy tak, żeby nikt nie przewinął. Potem cały scenariusz pod tempo TikToka.</span><span class="pr"></span></button>
+            <button class="ly" role="tab" id="t1" aria-controls="pv" aria-selected="false" style="--c:var(--rec)"><span class="sw"></span><span class="nm">Nagranie</span><span class="tm">dzień 2</span><span class="ds">Przyjeżdżam do firmy z listą ujęć. Nagrywam ludzi, produkt i detale, które robią klimat.</span><span class="pr"></span></button>
+            <button class="ly" role="tab" id="t2" aria-controls="pv" aria-selected="false" style="--c:var(--v1)"><span class="sw"></span><span class="nm">Montaż</span><span class="tm">dzień 3</span><span class="ds">Wycinam każdą zbędną sekundę. Cięcia pod muzykę, dźwięki pod przejścia.</span><span class="pr"></span></button>
+            <button class="ly" role="tab" id="t3" aria-controls="pv" aria-selected="false" style="--c:var(--v2)"><span class="sw"></span><span class="nm">Napisy i grafika</span><span class="tm">dzień 3</span><span class="ds">Napisy, które czyta się bez dźwięku, okładki i miniatury spójne z marką.</span><span class="pr"></span></button>
+            <button class="ly" role="tab" id="t4" aria-controls="pv" aria-selected="false" style="--c:var(--key)"><span class="sw"></span><span class="nm">Publikacja i wyniki</span><span class="tm">co miesiąc</span><span class="ds">Stały plan publikacji i raport: co działa, co poprawić w kolejnym miesiącu.</span><span class="pr"></span></button>
+          </div>
+        </div>
+        <div class="pk-mon">
+          <div class="pk-head"><span>Podgląd</span><b id="pkname">Hook i scenariusz</b></div>
+          <div class="pk-view" id="pv" role="tabpanel" aria-labelledby="t0" aria-live="polite"></div>
+        </div>
+      </div>
+      <div class="pk-extra">
+        <p><b>Strony i AI.</b> Buduję też proste strony i narzędzia z użyciem AI, gdy kampania potrzebuje landing page'a.</p>
+        <p><b>Marketing od strony teorii.</b> Trzeci rok zarządzania na UMK, moduł marketingowy. Pracę dyplomową piszę o personal brandingu na YouTube.</p>
       </div>
     </div>
   </section>
@@ -574,6 +683,74 @@ section.s{padding-block:clamp(72px,10vw,140px)}
       en.target.querySelectorAll('.meter strong').forEach((el,i) => run(el, i*180)); }), {threshold:.35});
     document.querySelectorAll('.case .meters').forEach(m => io.observe(m));
   }
+
+  /* --- pakiet: warstwy i podgląd --- */
+  const pk = document.getElementById('pk'), pv = document.getElementById('pv'), pkname = document.getElementById('pkname');
+  const tabs = [...pk.querySelectorAll('.ly')];
+  const views = [
+`<div class="pv"><div class="scr">
+  <div class="ln on"><span class="t">0:00</span><div><span class="k">Hook</span><span class="hook">„Ten laptop przyszedł do nas w kawałkach. Wyszedł szybszy niż nowy.”</span></div></div>
+  <div class="ln"><span class="t">0:03</span><div><span class="k">Ujęcie</span>Rozkręcony laptop na stole, szybki najazd kamery.</div></div>
+  <div class="ln"><span class="t">0:08</span><div><span class="k">Zwrot</span>Serwisant pokazuje, co było w środku. Reakcja klienta.</div></div>
+  <div class="ln"><span class="t">0:17</span><div><span class="k">CTA</span>„Masz podobny problem? Adres w bio.”</div></div>
+</div><p class="pv-cap">Przykładowy scenariusz dla firmy usługowej. Każdy film zaczyna się od hooka, nie od logo.</p></div>`,
+`<div class="pv"><div class="shots">
+  <div class="shot-f" style="--i:0"><span class="rec">REC</span><span class="ok">✓</span>Szeroki: wejście do firmy</div>
+  <div class="shot-f" style="--i:1"><span class="rec">REC</span><span class="ok">✓</span>Zbliżenie: ręce przy pracy</div>
+  <div class="shot-f" style="--i:2"><span class="rec">REC</span><span class="ok">✓</span>Reakcja klienta</div>
+</div><p class="pv-cap">Lista ujęć gotowa przed nagraniem, więc wizyta w firmie trwa godzinę, a nie cały dzień.</p></div>`,
+`<div class="pv"><div class="cut">
+  <div class="row"><span class="b" style="--c:var(--key);left:0;width:12%;--i:0"></span><span class="b" style="--c:var(--v1);left:13%;width:16%;--i:1"></span><span class="b dead" style="left:30%;width:14%;--i:2"></span><span class="b" style="--c:var(--v1);left:45%;width:20%;--i:3"></span><span class="b" style="--c:var(--v1);left:66%;width:18%;--i:4"></span><span class="b" style="--c:var(--a1);left:85%;width:14%;--i:5"></span></div>
+  <div class="row"><span class="b" style="--c:var(--v2);left:2%;width:10%;--i:2"></span><span class="b" style="--c:var(--v2);left:46%;width:12%;--i:4"></span><span class="b" style="--c:var(--v2);left:86%;width:10%;--i:6"></span></div>
+  <div class="row"><span class="b" style="--c:var(--a1);left:0;width:99%;--i:1"></span></div>
+  <div class="meta"><span>Cięcie co <b>1–2 s</b></span><span>Przestoje: <b>wycięte</b></span><span>Długość: <b>0:21</b></span></div>
+</div><p class="pv-cap">Czerwony klocek to przestój. Takie fragmenty znikają, zanim widz zdąży się znudzić.</p></div>`,
+`<div class="pv"><div class="gfx">
+  <div class="mini-ph"><div><span class="cp">W <em>kawałkach</em></span></div></div>
+  <div class="thumb"><span class="arrow"></span><span class="big">Szybszy<br><em>niż nowy?</em></span><span class="len">0:21</span></div>
+  <div class="lbl"><span>Napisy w filmie</span><span>Okładka i miniatura</span></div>
+</div><p class="pv-cap">Większość ludzi ogląda bez dźwięku, więc napisy niosą historię. Miniatura ma zatrzymać kciuk.</p></div>`,
+`<div class="pv"><div class="rep">
+  <div class="top"><span>Raport: ACMC.pl, lipiec</span><b>3,5 mln</b></div>
+  <svg viewBox="0 0 300 100" role="img" aria-label="Wykres wyświetleń w lipcu z wyraźnym szczytem w drugiej połowie miesiąca">
+    <line class="grid" x1="0" y1="25" x2="300" y2="25"/><line class="grid" x1="0" y1="55" x2="300" y2="55"/><line class="grid" x1="0" y1="85" x2="300" y2="85"/>
+    <path class="area" d="M0 96 L12 92 L22 89 L30 90 L38 60 L48 78 L56 88 L68 92 L78 95 L90 94 L100 90 L108 84 L116 88 L126 86 L136 72 L144 80 L154 77 L164 86 L172 90 L182 82 L190 22 L202 42 L214 62 L222 70 L232 54 L240 74 L250 84 L262 95 L276 95 L290 96 L300 96 L300 100 L0 100Z"/>
+    <path class="line" d="M0 96 L12 92 L22 89 L30 90 L38 60 L48 78 L56 88 L68 92 L78 95 L90 94 L100 90 L108 84 L116 88 L126 86 L136 72 L144 80 L154 77 L164 86 L172 90 L182 82 L190 22 L202 42 L214 62 L222 70 L232 54 L240 74 L250 84 L262 95 L276 95 L290 96 L300 96"/>
+  </svg>
+  <div class="cal"><span class="post">Pn</span><span>Wt</span><span class="post">Śr</span><span>Cz</span><span class="post">Pt</span><span>Sb</span><span class="post">Nd</span></div>
+</div><p class="pv-cap">Stały kalendarz publikacji i miesięczny raport. Wiesz, który film zadziałał i dlaczego.</p></div>`
+  ];
+  const DUR = 5200;
+  let cur = -1, timer = null, auto = !reduce, inView = false;
+  function show(i, fromUser){
+    if (i === cur) return; cur = i;
+    tabs.forEach((t,k) => { t.setAttribute('aria-selected', k===i ? 'true':'false'); t.tabIndex = k===i ? 0 : -1; });
+    pv.setAttribute('aria-labelledby', tabs[i].id);
+    pv.style.setProperty('--c', getComputedStyle(tabs[i]).getPropertyValue('--c'));
+    pv.innerHTML = views[i];
+    pkname.textContent = tabs[i].querySelector('.nm').textContent;
+    if (fromUser && matchMedia('(max-width:860px)').matches) tabs[i].scrollIntoView({block:'nearest',inline:'center',behavior:reduce?'auto':'smooth'});
+    schedule();
+  }
+  function schedule(){
+    clearTimeout(timer);
+    if (!auto || !inView) return;
+    tabs[cur].querySelector('.pr').style.animation='none'; void tabs[cur].offsetWidth; tabs[cur].querySelector('.pr').style.animation='';
+    pk.style.setProperty('--dur', DUR+'ms');
+    timer = setTimeout(() => show((cur+1) % tabs.length), DUR);
+  }
+  function stopAuto(){ auto = false; pk.classList.remove('auto'); clearTimeout(timer); }
+  tabs.forEach((t,i) => t.addEventListener('click', () => { stopAuto(); show(i, true); }));
+  pk.querySelector('.pk-list').addEventListener('keydown', e => {
+    const d = (e.key==='ArrowDown'||e.key==='ArrowRight') ? 1 : (e.key==='ArrowUp'||e.key==='ArrowLeft') ? -1 : 0;
+    if (!d) return; e.preventDefault(); stopAuto(); const n = (cur + d + tabs.length) % tabs.length; show(n, true); tabs[n].focus();
+  });
+  if (auto) pk.classList.add('auto');
+  show(0);
+  if ('IntersectionObserver' in window) new IntersectionObserver(es => es.forEach(e => {
+    const was = inView; inView = e.isIntersecting;
+    if (inView && !was && auto) { const c = cur; cur = -1; show(c); } else if (!inView) clearTimeout(timer);
+  }), {threshold:.4}).observe(pk);
 
   /* --- kopiuj e-mail --- */
   const btn = document.getElementById('copy'), mail = document.getElementById('mail');
