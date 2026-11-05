@@ -376,7 +376,7 @@ section.s{padding-block:clamp(72px,10vw,140px)}
       <div class="slate">
         <span><em>Projekt</em>Portfolio i CV</span>
         <span><em>Rola</em>Twórca, montażysta, social media</span>
-        <span><em>Teraz</em>UMK: zarządzanie i informatyka</span>
+        <span><em>Teraz</em>Zarządzanie, UMK</span>
       </div>
     </div>
   </section>
@@ -561,9 +561,7 @@ section.s{padding-block:clamp(72px,10vw,140px)}
     {lane:'v3', c:'--v2', name:'BRICKLEZ', from:62, to:76, when:'teraz', open:true,
      text:'Nowy kanał, już monetyzowany. Stały dzień publikacji i jeden długi format w miesiącu.'},
     {lane:'v2', c:'--key', name:'TikTok MICROLand', from:41, to:48, when:'początek 2025',
-     text:'Konto firmy IT z Radomia. 1,1 mln wyświetleń w styczniu i 8 tys. nowych obserwujących.'},
-    {lane:'a1', c:'--a1', name:'Informatyka, UMK', from:76, to:100, when:'od października 2026', wave:true,
-     text:'Pierwszy rok studiów stacjonarnych, równolegle z zarządzaniem.'}
+     text:'Konto firmy IT z Radomia. 1,1 mln wyświetleń w styczniu i 8 tys. nowych obserwujących.'}
   ];
   const lanes = {v1:'lane-v1', v2:'lane-v2', v3:'lane-v3', a1:'lane-a1'};
   const els = clips.map(c => {
@@ -622,7 +620,7 @@ section.s{padding-block:clamp(72px,10vw,140px)}
       if (y < innerHeight*1.2) planes.forEach(pl => pl.style.transform = `translate3d(0,${y*parseFloat(pl.dataset.depth)}px,0)`);
       const r = tl.getBoundingClientRect();
       const span = tl.offsetHeight - innerHeight;
-      const p = Math.min(1, Math.max(0, -r.top / Math.max(1,span)));
+      const p = 0.88 * Math.min(1, Math.max(0, -r.top / Math.max(1,span)));
       const pct = p*100;
       ph.style.setProperty('--p', p);
       if (r.top < innerHeight && r.bottom > 0) renderActive(pct);
