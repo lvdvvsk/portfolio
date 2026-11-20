@@ -267,6 +267,94 @@ section.s{padding-block:clamp(72px,10vw,140px)}
 }
 @media (prefers-reduced-motion:reduce){.chr::before,.chr .hd,.chr .pl{transition:none}}
 
+/* projekty: kosz projektu */
+.bin-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--f-tc);font-size:11px;color:var(--fg-soft);padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:20px}
+.bin-head b{color:var(--fg);font-weight:600}
+.bin-head .leg{display:flex;gap:16px}
+.bin-head .leg span{display:flex;align-items:center;gap:6px}
+.bin{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.pj{display:flex;flex-direction:column;gap:14px;text-decoration:none;color:inherit;min-width:0}
+.pj.wide{grid-column:span 2}
+.pj .th{position:relative;aspect-ratio:16/10;border-radius:10px;overflow:hidden;background:var(--panel);border:1px solid var(--line);transition:border-color .2s,transform .25s cubic-bezier(.2,.8,.2,1)}
+.pj.wide .th{aspect-ratio:auto;flex:1;min-height:240px}
+a.pj:hover .th{border-color:var(--key);transform:translateY(-3px)}
+a.pj:focus-visible{outline:none}
+a.pj:focus-visible .th{outline:2px solid var(--key);outline-offset:3px}
+.pj .meta{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:baseline}
+.pj h3{font-size:20px;font-weight:600;letter-spacing:-.015em}
+.pj .st{font-family:var(--f-tc);font-size:11px;display:flex;align-items:center;gap:6px;color:var(--fg-soft);white-space:nowrap}
+.dot{width:8px;height:8px;border-radius:50%;flex:none}
+.dot.live{background:var(--key);box-shadow:0 0 0 3px color-mix(in srgb,var(--key) 25%,transparent)}
+.dot.wip{background:var(--a1)}
+.pj p{grid-column:1 / -1;font-size:15px;color:var(--fg-soft);max-width:52ch}
+.pj .tags{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.pj .tags span{font-family:var(--f-tc);font-size:10px;color:var(--fg-soft);border:1px solid var(--line);border-radius:4px;padding:2px 6px}
+.pj .go{grid-column:1 / -1;font-weight:600;font-size:14px;color:var(--key);margin-top:2px}
+.th .badge{position:absolute;left:10px;top:10px;font-family:var(--f-tc);font-size:10px;padding:3px 7px;border-radius:4px;background:color-mix(in srgb,var(--ink) 80%,transparent);color:var(--fg-soft);z-index:2}
+.th .dur{position:absolute;right:8px;bottom:8px;font-family:var(--f-tc);font-size:10px;padding:2px 5px;border-radius:3px;background:rgba(0,0,0,.7);color:#fff;z-index:2}
+
+/* miniatury rysowane w CSS */
+.th.t-animka{background:#F4F6F8;display:grid;place-items:center}
+.th.t-animka .sub{display:flex;align-items:center;gap:14px;background:#fff;border-radius:999px;padding:12px 14px 12px 12px;box-shadow:0 14px 30px -12px rgba(15,19,23,.35)}
+.th.t-animka .av{width:46px;height:46px;border-radius:50%;background:conic-gradient(from 200deg,var(--v2),var(--v1),var(--key),var(--v2));border:3px solid #fff;box-shadow:0 0 0 2px #E2E6EA}
+.th.t-animka .nm{font:600 15px var(--f-text);color:#111}
+.th.t-animka .nm small{display:block;font-weight:400;font-size:11px;color:#6B7580}
+.th.t-animka .btn-s{font:700 13px var(--f-text);color:#fff;background:#E5262B;border-radius:999px;padding:9px 16px}
+.th.t-animka .bell{width:30px;height:30px;border-radius:50%;background:#EEF1F4;display:grid;place-items:center}
+.th.t-animka .bell::before{content:"";width:12px;height:12px;border:2px solid #111;border-bottom:0;border-radius:8px 8px 2px 2px}
+.th.t-animka .cur{position:absolute;right:30%;bottom:26%;width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-bottom:16px solid #111;transform:rotate(-30deg)}
+.th.t-animka .chips{position:absolute;left:12px;bottom:12px;display:flex;gap:6px}
+.th.t-animka .chips span{font:600 10px var(--f-text);color:#3A434C;background:#fff;border:1px solid #E2E6EA;border-radius:999px;padding:4px 9px}
+
+.th.t-klatka{background:#0B0E11;display:flex;flex-direction:column;padding:12px;gap:8px}
+.th.t-klatka .mon{flex:1;border-radius:6px;background:linear-gradient(160deg,#28323C,#12171C);position:relative}
+.th.t-klatka .mon::after{content:"";position:absolute;left:50%;top:50%;width:22%;aspect-ratio:9/16;transform:translate(-50%,-50%);border-radius:4px;background:linear-gradient(170deg,var(--v1),var(--v2))}
+.th.t-klatka .trk{height:12px;border-radius:3px;position:relative}
+.th.t-klatka .trk i{position:absolute;top:0;bottom:0;border-radius:3px}
+
+.th.t-top{background:linear-gradient(180deg,#0E1A2B,#1B2D45 70%,#25384F);display:flex;align-items:flex-end;justify-content:center;gap:10px;padding-top:14px}
+.th.t-top .tw{width:32%;height:92%;background:#0D1520;border:1px solid #2C3E55;border-bottom:0;display:flex;flex-direction:column;gap:3px;padding:6px 6px 0}
+.th.t-top .tw i{flex:1;border-radius:2px;background:#1A2636}
+.th.t-top .tw i.on{background:var(--a1)}
+.th.t-top .tw i.on2{background:var(--v1)}
+.th.t-top .sm{width:14%;height:48%;background:#0D1520;border:1px solid #22334A;border-bottom:0}
+
+.th.t-kogut{background:linear-gradient(160deg,#FFE7C2,#FFC98A);display:grid;place-items:center}
+.th.t-kogut .ph{width:34%;aspect-ratio:9/17;border-radius:16px;background:#1B1410;padding:5px}
+.th.t-kogut .sc{height:100%;border-radius:12px;background:#FFF8EE;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#1B1410}
+.th.t-kogut .tm{font:700 clamp(14px,1.6vw,20px) var(--f-display);letter-spacing:-.03em}
+.th.t-kogut .q{font:600 9px var(--f-tc);background:#F3E3CC;border-radius:4px;padding:3px 6px}
+.th.t-kogut .cm{width:14px;height:10px;background:#E5262B;border-radius:8px 8px 2px 2px;margin-bottom:2px}
+
+.th.t-vm{background:#F7F5FB;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:14px;align-content:center}
+.th.t-vm .it{background:#fff;border-radius:8px;padding:6px;box-shadow:0 6px 14px -8px rgba(30,20,60,.35)}
+.th.t-vm .it i{display:block;aspect-ratio:16/10;border-radius:5px;margin-bottom:6px}
+.th.t-vm .it b{display:block;height:5px;width:80%;border-radius:3px;background:#DCD6E8;margin-bottom:4px}
+.th.t-vm .it span{display:block;font:700 9px var(--f-tc);color:#5B3FD6}
+
+.th.t-cw{background:linear-gradient(180deg,#6BB6FF 0 46%,#5DAA3A 46% 52%,#7A5233 52%);display:grid;place-items:center}
+.th.t-cw .card{background:rgba(15,19,23,.88);border-radius:8px;padding:10px 12px;display:flex;gap:10px;align-items:center;color:#fff}
+.th.t-cw .card i{width:28px;height:28px;background:linear-gradient(135deg,#5EEAD4,#0EA5A4);border-radius:3px;box-shadow:inset -4px -4px 0 rgba(0,0,0,.25)}
+.th.t-cw .card b{font:600 12px var(--f-text);display:block}
+.th.t-cw .card span{font:600 10px var(--f-tc);color:var(--key)}
+
+.th.t-games{background:#101820;display:grid;grid-template-columns:1fr 1fr}
+.th.t-games .rb{background:linear-gradient(170deg,#2B5FD9,#152E6B);position:relative;overflow:hidden}
+.th.t-games .rb::before{content:"";position:absolute;left:28%;top:30%;width:34%;aspect-ratio:1;background:#E9EEF5;transform:rotate(12deg);border-radius:4px;box-shadow:inset 0 0 0 9px #E9EEF5,inset 0 0 0 30px #152E6B}
+.th.t-games .mc{background:#6E7378;position:relative;overflow:hidden}
+.th.t-games .mc::before{content:"";position:absolute;inset:0;background-image:linear-gradient(#5d6166 2px,transparent 2px),linear-gradient(90deg,#5d6166 2px,transparent 2px);background-size:22px 22px}
+.th.t-games .mc::after{content:"";position:absolute;left:0;right:0;bottom:0;height:40%;background:#0B0E11;clip-path:polygon(0 30%,18% 30%,18% 0,36% 0,36% 45%,54% 45%,54% 20%,72% 20%,72% 60%,100% 60%,100% 100%,0 100%)}
+
+@media (max-width:860px){
+  .bin{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pj.wide{grid-column:1 / -1}
+  .pj.wide .th{aspect-ratio:16/9;height:auto;min-height:0}
+}
+@media (max-width:560px){
+  .bin{grid-template-columns:minmax(0,1fr);gap:28px}
+  .th.t-animka .sub{transform:scale(.78)}
+}
+
 /* end card */
 .end{background:var(--key);color:var(--on-key);padding-block:clamp(80px,12vw,160px) 48px}
 .end .bar-render{height:10px;border:2px solid var(--on-key);border-radius:3px;margin-bottom:22px;position:relative;overflow:hidden}
@@ -342,6 +430,7 @@ section.s{padding-block:clamp(72px,10vw,140px)}
       <a href="#wyniki">Wyniki</a>
       <a href="#os">Oś czasu</a>
       <a href="#kanaly">Kanały</a>
+      <a href="#projekty">Projekty</a>
       <a href="#kontakt" class="cta">Kontakt</a>
     </nav>
   </div>
@@ -526,6 +615,61 @@ section.s{padding-block:clamp(72px,10vw,140px)}
         <li><a class="chr" style="--c:var(--key);--t:var(--on-key)" href="https://www.tiktok.com/@microland_radom" target="_blank" rel="noopener"><span class="pf">TikTok</span><span class="hd"><span>@</span>microland_radom</span><span class="st"><b>MICROLand Radom</b>1,1 mln wyświetleń w miesiąc</span><span class="pl" aria-hidden="true"></span></a></li>
       </ul>
         </div>
+  </section>
+
+  <section class="s" id="projekty" style="padding-top:0">
+    <div class="wrap">
+      <div class="s-head">
+        <h2>Projekty po godzinach</h2>
+        <p>Strony, aplikacje i gry, które buduję po pracy z pomocą AI. Jedna już działa, reszta jest jeszcze w montażu.</p>
+      </div>
+      <div class="bin-head"><span>Kosz projektu: <b>7 elementów</b></span><span class="leg"><span><i class="dot live"></i>Online</span><span><i class="dot wip"></i>W montażu</span></span></div>
+      <div class="bin">
+        <a class="pj wide" href="https://animka.pl" target="_blank" rel="noopener">
+          <div class="th t-animka" aria-hidden="true"><span class="badge">beta</span><div class="sub"><span class="av"></span><span class="nm">Twój kanał<small>12,4 tys. subskrypcji</small></span><span class="btn-s">Subskrybuj</span><span class="bell"></span></div><span class="cur"></span><span class="chips"><span>Subskrybuj</span><span>Polub</span><span>Komentarz</span></span><span class="dur">0:03</span></div>
+          <div class="meta"><h3>animka.pl</h3><span class="st"><i class="dot live"></i>Online, beta</span>
+            <p>Gotowe animacje dla montażystów: subskrybuj, polub, komentarz. Wgrywasz swój awatar, ustawiasz animację i eksportujesz ją do filmu. Animacje z Minecrafta i Robloxa są w drodze.</p>
+            <span class="tags"><span>Node.js</span><span>render wideo</span><span>logowanie Discord i Google</span><span>bot na Discordzie</span></span>
+            <span class="go">Otwórz animka.pl</span></div>
+        </a>
+        <div class="pj">
+          <div class="th t-klatka" aria-hidden="true"><span class="badge">Windows</span><div class="mon"></div><div class="trk" style="background:#161C22"><i style="left:4%;width:30%;background:var(--v2)"></i><i style="left:60%;width:22%;background:var(--v2)"></i></div><div class="trk" style="background:#161C22"><i style="left:0;width:44%;background:var(--v1)"></i><i style="left:45%;width:38%;background:var(--v1)"></i></div><div class="trk" style="background:#161C22"><i style="left:0;width:90%;background:var(--a1)"></i></div></div>
+          <div class="meta"><h3>Klatka</h3><span class="st"><i class="dot wip"></i>W montażu</span>
+            <p>Własny edytor krótkich filmów w stylu CapCuta. Główna ścieżka na dole, reszta swobodnie nad nią.</p>
+            <span class="tags"><span>Electron</span><span>edycja wideo</span></span></div>
+        </div>
+        <div class="pj">
+          <div class="th t-top" aria-hidden="true"><span class="badge">3D</span><span class="sm"></span><span class="tw"><i class="on"></i><i class="on2"></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="sm" style="height:62%"></span></div>
+          <div class="meta"><h3>TopPiętro</h3><span class="st"><i class="dot wip"></i>W montażu</span>
+            <p>Wieżowiec 3D, w którym firmy kupują piętra z logo i linkiem. Kto zapłaci więcej, ląduje wyżej.</p>
+            <span class="tags"><span>3D w przeglądarce</span><span>Stripe</span></span></div>
+        </div>
+        <div class="pj">
+          <div class="th t-kogut" aria-hidden="true"><span class="badge">iOS i Android</span><div class="ph"><div class="sc"><span class="cm"></span><span class="tm">07:00</span><span class="q">12 × 7 = ?</span></div></div></div>
+          <div class="meta"><h3>Kogut</h3><span class="st"><i class="dot wip"></i>W montażu</span>
+            <p>Budzik, którego nie wyłączysz, dopóki nie wykonasz zadania: rachunki, przysiady albo zdjęcie przedmiotu. Do tego analiza snu.</p>
+            <span class="tags"><span>aplikacja mobilna</span><span>kamera</span></span></div>
+        </div>
+        <div class="pj">
+          <div class="th t-vm" aria-hidden="true"><div class="it"><i style="background:linear-gradient(135deg,#FF6B6B,#FFB86B)"></i><b></b><span>49 zł</span></div><div class="it"><i style="background:linear-gradient(135deg,#5B3FD6,#9B7BFF)"></i><b></b><span>120 zł</span></div><div class="it"><i style="background:linear-gradient(135deg,#16B43F,#7BE38F)"></i><b></b><span>35 zł</span></div></div>
+          <div class="meta"><h3>virtualmarket.pl</h3><span class="st"><i class="dot wip"></i>W montażu</span>
+            <p>Polski rynek produktów i usług cyfrowych: miniatury, montaż, grafiki, strony. Pieniądze trafiają do sprzedawcy dopiero po dostarczeniu.</p>
+            <span class="tags"><span>marketplace</span><span>płatności</span></span></div>
+        </div>
+        <div class="pj">
+          <div class="th t-cw" aria-hidden="true"><div class="card"><i></i><div><b>Ranga VIP</b><span>Kup teraz</span></div></div></div>
+          <div class="meta"><h3>Cwaniaczki.pl</h3><span class="st"><i class="dot wip"></i>W montażu</span>
+            <p>Strona serwera Minecraft ze sklepem i płatnościami online.</p>
+            <span class="tags"><span>Stripe</span><span>sklep</span></span></div>
+        </div>
+        <div class="pj wide">
+          <div class="th t-games" aria-hidden="true"><span class="badge">Roblox i Minecraft</span><div class="rb"></div><div class="mc"></div></div>
+          <div class="meta"><h3>Gry i mody</h3><span class="st"><i class="dot wip"></i>W montażu</span>
+            <p>HouseHangout, gra towarzyska na Robloxie, oraz Vanishing Trail, data pack do Minecrafta, w którym każdy blok znika zaraz po zejściu z niego.</p>
+            <span class="tags"><span>Roblox Studio</span><span>Lua</span><span>data pack</span></span></div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="end" id="kontakt">
